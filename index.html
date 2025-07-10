@@ -6,8 +6,6 @@
     <title>趣味数学 - 数论与计数问题</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-	
-	
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -49,23 +47,56 @@
             margin: 15px 0;
             border-left: 4px solid #3498db;
         }
+        .question {
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0 5px 0;
+        }
+        .answer-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border: 1px solid #d1fae5;
+            border-radius: 8px;
+            padding: 5px 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .answer-container:hover {
+            background: linear-gradient(135deg, #dcffe4 0%, #c6f6d5 100%);
+            transform: translateX(5px);
+        }
+        .answer-prompt {
+            color: #10b981;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .answer-prompt:before {
+            content: "✨";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .answer {
+            color: #0f9d58;
+            margin-left: 20px;
+            padding: 10px 15px;
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid #10b981;
+            border-radius: 0 8px 8px 0;
+            display: none;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+        .show-answer .answer {
+            display: block;
+        }
         .example {
             background-color: #f8f9fa;
             padding: 12px;
             border-radius: 6px;
             margin: 15px 0;
             border: 1px solid #e0e0e0;
-        }
-        .question {
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 12px 0 5px 0;
-        }
-        .answer {
-            color: #27ae60;
-            margin-left: 20px;
-            padding-left: 10px;
-            border-left: 2px solid #2ecc71;
         }
         
         /* 余数问题动画 */
@@ -229,7 +260,7 @@
             height: 50%;
             display: flex;
             justify-content: center;
-            align-items: left;
+            align-items: center;
         }
         .fraction-arrow {
             font-size: 24px;
@@ -248,8 +279,10 @@
             0% { width: 100%; }
             100% { width: 50%; margin-left: 25%; }
         }
-		
-        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -276,7 +309,6 @@
             <div class="division-result">6</div>
             <div class="division-explanation">余数 1</div>
         </div>
-        
     </div>
     
     <div class="rule">
@@ -285,24 +317,33 @@
             <li><strong>带余除法：</strong>被除数 = 除数 × 商 + 余数</li>
             <li><strong>同余概念：</strong>a ≡ b (mod m) 表示 m | (a - b)（m整除(a-b)）</li>
             <li><strong>中国剩余定理：</strong>解决同余方程组<br>核心思想:<br>
-▶ ​​条件​​：模数两两互质（如3和5没有公因数）<br>
-▶ ​​方法​​：分三步找到满足所有条件的数:<br>第一步：验证模数互质(所有模数必须两两互质（最大公约数为1）)；<br>第二步：计算基础量(M = 所有模数相乘；​​求部分周期​​：如M₁ = M/m₁ = 105/3 = 35；求逆元​​（解同余方程）：
-找 y₁ 使得 M₁y₁ ≡ 1 (mod m₁) → 35y₁ ≡ 1 (mod 3))；<br>第三步：组合解（公式​​：
+▶ 条件：模数两两互质（如3和5没有公因数）<br>
+▶ 方法：分三步找到满足所有条件的数:<br>第一步：验证模数互质(所有模数必须两两互质（最大公约数为1）)；<br>第二步：计算基础量(M = 所有模数相乘；求部分周期：如M₁ = M/m₁ = 105/3 = 35；求逆元（解同余方程）：
+找 y₁ 使得 M₁y₁ ≡ 1 (mod m₁) → 35y₁ ≡ 1 (mod 3))；<br>第三步：组合解（公式：
 x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
         </ul>
     </div>
     
     <div class="example">
         <div class="question">一个数除以3余2，除以4余1，最小的自然数解是多少？</div>
-        <div class="answer">5</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">5</div>
+        </div>
         
         <div class="question">满足 x≡1 (mod 3) 且 x≡2 (mod 5) 的最小自然数是多少？</div>
-        <div class="answer">7</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">7</div>
+        </div>
         
         <div class="question">每隔3天去游泳会剩1天休息（≡1 mod 3）
 每隔5天去健身会剩2天休息（≡2 mod 5）
 问：多少天后这两个休息日会重合？</div>
-        <div class="answer">7</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">7</div>
+        </div>
     </div>
     
     <h3>2. 数字性质</h3>
@@ -321,22 +362,31 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
         <ul>
             <li>数字和：各位数字相加</li>
             <li>数字构造：特定排列的数字</li>
-            <li>整除规则：<br>被2整除:规则​​：末位是0、2、4、6、8<br>被3整除:
-​​规则​​：各位数字之和能被3整除<br>被4整除:
-​​规则​​：末两位数能被4整除<br> 被5整除:
-​​规则​​：末位是0或5<br></li>
+            <li>整除规则：<br>被2整除:规则：末位是0、2、4、6、8<br>被3整除:
+规则：各位数字之和能被3整除<br>被4整除:
+规则：末两位数能被4整除<br> 被5整除:
+规则：末位是0或5<br></li>
         </ul><br>
     </div>
     
     <div class="example">
         <div class="question">1至50中，5的倍数有多少个？</div>
-        <div class="answer">10个</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">10个</div>
+        </div>
         
         <div class="question">1至100中，能同时被3和4整除的数有多少个？</div>
-        <div class="answer">8个（运用公倍数）</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">8个（运用公倍数）</div>
+        </div>
         
         <div class="question">用2,5,8各一次组成三位数且是3的倍数，有多少种方法？</div>
-        <div class="answer">6种</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">6种</div>
+        </div>
     </div>
 </div>
 
@@ -369,14 +419,13 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
             <div class="cube" style="animation: cube-fall 0.7s ease-out 0.2s;">1</div>
             <div class="cube-label">3² = 9</div>
         </div>
-        
     </div>
     
     <div class="rule">
         <strong>数列运算规则：</strong>
         <ul>
             <li><strong>平方和公式：</strong>1² + 2² + ... + n² = n(n+1)(2n+1)/6<div class="formula-container">
-        辅助记忆：  \( n=1 \): \[1^{2}=\frac{1\times2\times 3}{6}=1 =\frac{1\times(1+1)\times (2*1+1)}{6}=1 \]
+        辅助记忆：  \( n=1 \): \[1^{2}=\frac{1\times2\times 3}{6}=1 =\frac{1\times(1+1)\times (2 * 1+1)}{6}=1 \]
     </div></li>
             <li><strong>立方和公式：</strong>1³ + 2³ + ... + n³ = [n(n+1)/2]² <div class="formula">
        辅助记忆：  \( n=1 \):
@@ -388,13 +437,22 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
     
     <div class="example">
         <div class="question">1² + 2² + ... + 60²是多少？</div>
-        <div class="answer">73810</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">73810</div>
+        </div>
         
         <div class="question">1³ + 2³ + ... + 19³是多少？</div>
-        <div class="answer">36100</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">36100</div>
+        </div>
         
         <div class="question">2² + 4² + 6² + ... + 40²是多少？</div>
-        <div class="answer">11480</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">11480</div>
+        </div>
     </div>
     
     <h3>2. 分数裂项</h3>
@@ -430,14 +488,23 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
     
     <div class="example">
         <div class="question">1/(1×2) + 1/(2×3) + ... + 1/(9×10)是多少？</div>
-        <div class="answer">9/10</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">9/10</div>
+        </div>
         
         <div class="question">3/(3×5) + 5/(5×7) + ... + 19/(19×21)是多少？</div>
-        <div class="answer">9/21=3/7</div>
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">9/21=3/7</div>
+        </div>
         
         <div class="question">1/(1×2×3) + 1/(2×3×4) + ... + 1/(8×9×10)是多少？</div>
-        <div class="answer">11/45</div>
-		 <div class="step">
+        <div class="answer-container">
+            <div class="answer-prompt">点击显示答案</div>
+            <div class="answer">11/45</div>
+			<br>
+			 <div class="step">
         <div class="step-title">1. 设定分解形式:</div>
         <p>首先假设分式可以拆分为:</p>
         <p>$$ \frac{1}{n(n+1)(n+2)}=\frac{A}{n}+\frac{B}{n+1}+\frac{C}{n+2} $$</p>
@@ -467,6 +534,9 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
     </div>
     </div>
 </div>
+        </div>
+    </div>
+</div>
 
 <script>
     // Highlight multiples of 7 in the number grid
@@ -490,6 +560,16 @@ x ≡ (a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃) mod M，求出x）</li>
             }
         });
     }, 1000);
+
+    // Answer display functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('click', function(e) {
+            const container = e.target.closest('.answer-container');
+            if(container) {
+                container.classList.toggle('show-answer');
+            }
+        });
+    });
 </script>
 </body>
 </html>
